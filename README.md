@@ -4,7 +4,7 @@ This app will create a menu item which runs a maxscript in the Toolkit context.
 
 ## Configuration
 
-- `maxscripts` is a list of dictionaries which defien a menu item.
+- `maxscripts` is a list of dictionaries which define a menu item.
 - `context` is a list of acceptable entity types that the script will be available for 
 based on the context.
 - `menu_name` is the label the will appear on the menu.
