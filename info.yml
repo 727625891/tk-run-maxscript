@@ -1,0 +1,44 @@
+# Copyright (c) 2013 Shotgun Software Inc.
+# 
+# CONFIDENTIAL AND PROPRIETARY
+# 
+# This work is provided "AS IS" and subject to the Shotgun Pipeline Toolkit 
+# Source Code License included in this distribution package. See LICENSE.
+# By accessing, using, copying or modifying this work you indicate your 
+# agreement to the Shotgun Pipeline Toolkit Source Code License. All rights 
+# not expressly granted therein are reserved by Shotgun Software Inc.
+
+# Metadata defining the behaviour and requirements for this engine
+
+# expected fields in the configuration file for this engine
+configuration:
+
+    max_scripts:
+        type: list
+        description: "A list of dictionaries which define the path of the max script,
+                      the menu_name for the max script and a dictionary of optional vals."
+        values:
+          type: dict
+          items:
+            context:
+              type: list
+              values: {type: str}
+            menu_name: {type: str}
+            path: {type: config_path}
+            replacements: {type: dict}
+        allows_empty: False
+
+# the engines that this app can operate in:
+supported_engines: [tk-3dsmaxplus]
+
+# the Shotgun fields that this engine needs in order to operate correctly
+requires_shotgun_fields:
+        
+# More verbose description of this item 
+display_name: "Run Maxscript"
+description: "An app to run a Maxscript in a SGTK context."
+
+# Required minimum versions for this item to run
+requires_shotgun_version:
+requires_core_version: "v0.14.28"
+requires_engine_version:
