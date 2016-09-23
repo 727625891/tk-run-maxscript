@@ -36,29 +36,26 @@ class RunMaxScript(Application):
             if self.context.entity["type"] not in item["context"]:
                 continue
 
-            # define properties
+            # define args
             p = {"script": item["path"],
                  "replacements": item["replacements"]}
 
-            cb = lambda: self.run_maxscript(p)
-
-            # now register the command with the engine
-            self.engine.register_command(item["menu_name"], cb)
+            self.engine.register_command(item["menu_name"], lambda p=p: self.run_maxscript(p))
 
     def __get_config_path(self):
         path = self.shotgun.find_one("PipelineConfiguration", [["project", "is", self.context.project],
                                               ["code", "is", self.sgtk.configuration_name]], ["windows_path"])
         return path["windows_path"]
 
-    def run_maxscript(self, properties):
-        script = properties["script"]
+    def run_maxscript(self, args):
+        script = args["script"]
 
         if not os.path.exists(script):
             raise TankError("Cannot run script: '%s' does not exist." % script)
 
         script = "".join(open(script, "r").readlines())
 
-        for k, v in properties["replacements"].iteritems():
+        for k, v in args["replacements"].iteritems():
             if v.startswith("resources/"):
                 v = os.path.join(self.__get_config_path(), "config", v).replace("\\", "/")
 
